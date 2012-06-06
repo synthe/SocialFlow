@@ -17,13 +17,13 @@
 	-webkit-animation-duration: 10s;
 }
 #social-flow .item.speed-fast {
-	-webkit-animation-duration: 5s;
-}
-#social-flow .item.speed-normal {
 	-webkit-animation-duration: 10s;
 }
+#social-flow .item.speed-normal {
+	-webkit-animation-duration: 13s;
+}
 #social-flow .item.speed-slow {
-	-webkit-animation-duration: 15s;
+	-webkit-animation-duration: 18s;
 }
 #social-flow .item:hover {
 	-webkit-animation-play-state: paused;
