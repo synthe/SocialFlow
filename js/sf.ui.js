@@ -40,8 +40,7 @@ sf.ui = {
 		// Place products
 		for( x=0; x<obj.products.length; x++ ){
 			var y = $('<a target="_blank"><img /><span></span></a>');
-			y.find('a').attr('href', obj.products[x].link);
-			console.log(y.find('a'));
+			y.attr('href', obj.products[x].link);
 			y.find('img').attr('src', obj.products[x].photo);
 			y.appendTo(products);
 		}
