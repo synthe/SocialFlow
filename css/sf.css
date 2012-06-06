@@ -59,6 +59,7 @@ section#social-flow{
 }
 	#social-flow .item{
 		position:absolute;
+		white-space:nowrap;
 		left: -100%;
 		-webkit-animation-play-state: running;
 		-webkit-animation-name: movingleft;
@@ -102,6 +103,8 @@ section#social-flow{
 			min-height:68px;
 			width:376px;
 			position:relative;
+			background:white;
+			white-space:normal;
 		}
 			#social-flow .item .message .quote-arrow{
 				position:absolute;

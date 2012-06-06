@@ -5,7 +5,9 @@ sf.ui = {
 		containerID: 'social-flow',
 		templateID: 'sf-template',
 		itemBaseHeight: 100,
+		repeatSpeed: 2000
 		repeatSpeed: 2000,
+		noIconImage: 'img/demo-random-persons-face.jpg'
 		speedClasses: ['speed-fast', 'speed-normal', 'speed-slow']
 	},
 	elem: {
@@ -31,15 +33,24 @@ sf.ui = {
 			.removeAttr('id')
 			.css("right", '500px')
 			.css('top', this.getRandomPosition() + 'px');
-		console.log(elem);
 		var icon = elem.find('.icon')
 			.attr('href', obj.link);
 		icon.find('img')
-			.attr('src', obj.icon)
+			.attr('src', (obj.icon ? obj.icon : this.config.noIconImage));
 		elem.find('.message p')
 			.html(obj.message);
 		elem.find('.message a')
 			.attr('href', obj.link);
+
+		var products = elem.find('.products');
+		// Place products
+		for( x=0; x<obj.products.length; x++ ){
+			var y = $('<a target="_blank"><img /><span></span></a>');
+			y.find('a').attr('href', obj.products[x].link);
+			console.log(y.find('a'));
+			y.find('img').attr('src', obj.products[x].photo);
+			y.appendTo(products);
+		}
 
 		var speedClass = this.config.speedClasses[Math.floor(Math.random()*this.config.speedClasses.length)];			
 		elem.addClass(speedClass);
@@ -52,37 +63,39 @@ sf.ui = {
 
 		var position = (Math.floor(Math.random() * maxPossible)) * this.config.itemBaseHeight;
 		position = position + (Math.floor((Math.random() * 50) - 25));
-		console.log(position);
 		return position;
 	},
 	getNext: function(queue){
+		//return sf.queues.getNextPending();
+		///* json example structure
 		return {
 			link: 'http://www.twitter.com',
 			icon: 'img/demo-random-persons-face.jpg',
 			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquam ligula nec felis aliquet rutrum. In molestie augue a mauris commodo sit amet egestas nisi euismod.',
 			products: [
 				{
-					image: 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail/11/_7081751.jpg',
+					photo: 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail/11/_7081751.jpg',
 					name: 'Some random product',
 					link: 'http://www.nordstrom.com'
 				},
 				{
-					image: 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail/11/_7081751.jpg',
+					photo: 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail/11/_7081751.jpg',
 					name: 'Some random product',
 					link: 'http://www.nordstrom.com'
 				},
 				{
-					image: 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail/11/_7081751.jpg',
+					photo: 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail/11/_7081751.jpg',
 					name: 'Some random product',
 					link: 'http://www.nordstrom.com'
 				},
 				{
-					image: 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail/11/_7081751.jpg',
+					photo: 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail/11/_7081751.jpg',
 					name: 'Some random product',
 					link: 'http://www.nordstrom.com'
 				},
 			]
 		}
+		//*/
 	},
 	repeater: function(){
 		sf.ui.place( sf.ui.getNext() );
