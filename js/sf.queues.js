@@ -23,18 +23,21 @@ sf.queues = {
 	},
 
 	addPending: function(obj){
-		this.pending.push(obj);
-		console.log('adding pending item to queue');
+		sf.queues.pending.push(obj);
+		// console.log('adding pending item to queue', obj);
 	},
 	addSocial: function(obj){
 		sf.queues.social.push(obj);
 	},
 
 	getNextPending: function(){
-		if( !this.pending.length )
+		if( !sf.queues.pending.length )
 			return false;
-		var result = this.pending.splice(0, 1);
-		this.pending.push(result);
+		var result = sf.queues.pending.splice(0, 1);
+		if (result.length > 0) {
+			sf.queues.pending.push(result[0]);
+		}
+		return result[0];
 	},
 	killRepeater: function(){
 		clearTimeout(this.config.timer);

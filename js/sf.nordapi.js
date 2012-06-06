@@ -83,15 +83,13 @@ sf.nordapi = (function() {
 	}
 
 	function runCallback(socialObj, prods, callbackFn) {
-		console.log('napi callback');
-		if (prods.length > 0) {
-			console.log('prods', prods);
-			socialObj.products = prods;
+		if (prods.results.length > 0) {
+			socialObj.products = prods.results;
 			if (typeof callbackFn == 'function') {
 				callbackFn(socialObj);
 			}
 		} else {
-			console.log('failed to do something');
+			// console.log('failed to do something');
 		}
 	}
 
@@ -142,7 +140,7 @@ sf.nordapi = (function() {
 			name: 	pObj.Title,
 			brand: 	pObj.BrandLabelName,
 			photo: 	baseObj.thumbBase + pObj.PhotoPath,
-			link: 	baseObj.productBase + pObj.PathAlias,
+			link: 	baseObj.productBase + pObj.PathAlias + '/' + pObj.Id,
 			style: 	pObj.StyleNumber
 		};
 	}
