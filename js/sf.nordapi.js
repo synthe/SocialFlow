@@ -55,13 +55,13 @@ sf.nordapi = (function() {
 						} else {
 							// brand > 0
 							productsBrand = translateResults('brand', productsBrand);
-							runCallback(socialObj, productsBuzz, callback);
+							runCallback(socialObj, productsBrand, callback);
 						}
 
 					});
 				} else {
 					productsBrandBuzz = translateResults('brandbuzz', productsBrandBuzz);
-					runCallback(socialObj, productsBuzz, callback);
+					runCallback(socialObj, productsBrandBuzz, callback);
 				}
 			});
 
@@ -83,11 +83,15 @@ sf.nordapi = (function() {
 	}
 
 	function runCallback(socialObj, prods, callbackFn) {
+		console.log('napi callback');
 		if (prods.length > 0) {
+			console.log('prods', prods);
 			socialObj.products = prods;
 			if (typeof callbackFn == 'function') {
 				callbackFn(socialObj);
 			}
+		} else {
+			console.log('failed to do something');
 		}
 	}
 
@@ -108,6 +112,7 @@ sf.nordapi = (function() {
 			return;
 		}
 		var ajaxParams = baseObj.apiParams;
+		keywordStr = encodeURIComponent(keywordStr);
 		ajaxParams.keyword = keywordStr;
 
 		$.ajax({
