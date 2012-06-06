@@ -37,15 +37,13 @@
       };
       peeps.push(z);
     }
-    console.log(peeps);
     _results = [];
     for (_j = 0, _len1 = peeps.length; _j < _len1; _j++) {
       p = peeps[_j];
       k = sf.filter(p.message);
       if ($.isEmptyObject(k) === false && p !== void 0 && p.message !== void 0) {
-        console.log(k);
         p.filter = k;
-        console.log("Pushing to socialQueue");
+        console.log("Pushing to socialQueue from le Twitter");
         window.statusQueue.push(p);
         _results.push(sf.queues.addSocial(p));
       } else {
@@ -57,7 +55,7 @@
 
   getFacebook = function(params) {
     var query;
-    query = 'https://graph.facebook.com/search/?callback=&limit=1&q=Nordstrom&fields=message,from';
+    query = 'https://graph.facebook.com/search/?callback=&limit=125&q=Nordstrom&fields=message,from';
     return $.ajax({
       url: query,
       type: 'GET',
@@ -89,9 +87,8 @@
       p = peeps[_j];
       k = sf.filter(p.message);
       if ($.isEmptyObject(k) === false && p !== void 0 && p.message !== void 0) {
-        console.log(k);
         p.filter = k;
-        console.log("Pushing to socialQueue");
+        console.log("Pushing to socialQueue from le Facebook");
         window.statusQueue.push(p);
         _results.push(sf.queues.addSocial(p));
       } else {

@@ -30,23 +30,21 @@ parseTwitter = (json) ->
 	#peeps = p for p in peeps if p isnt undefined
 
 	# console.log "Twitter peeps"
-	# console.log p for p in peeps 
-	console.log peeps
+	#console.log peeps
 
 	for p in peeps
 		# k = addToQueue p[2]
 
 		k = sf.filter p.message
 		if $.isEmptyObject(k) is false and p isnt undefined and p.message isnt undefined
-			console.log k
 			p.filter = k
-			console.log "Pushing to socialQueue"
+			console.log "Pushing to socialQueue from le Twitter"
 			window.statusQueue.push p 
 			sf.queues.addSocial p
 
 
 getFacebook = (params) ->
-	query = 'https://graph.facebook.com/search/?callback=&limit=1&q=Nordstrom&fields=message,from'
+	query = 'https://graph.facebook.com/search/?callback=&limit=125&q=Nordstrom&fields=message,from'
 	$.ajax
 		url: query
 		type: 'GET'
@@ -81,9 +79,8 @@ parseFacebook = (json) ->
 
 		k = sf.filter p.message
 		if $.isEmptyObject(k) is false and p isnt undefined and p.message isnt undefined
-			console.log k
 			p.filter = k
-			console.log "Pushing to socialQueue"
+			console.log "Pushing to socialQueue from le Facebook"
 			window.statusQueue.push p 
 			sf.queues.addSocial p
 
