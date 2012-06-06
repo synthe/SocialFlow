@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/animate-test.css" media="all">
+	<script type="text/javascript">
+	var speedClasses = ['speed-fast', 'speed-normal', 'speed-slow'];
+
+	function addBox() {
+		var randomTop = Math.round(Math.random()*360);
+		var speedClass = speedClasses[Math.floor(Math.random()*speedClasses.length)];
+		$('.item:first').clone().appendTo($('#social-flow')).css('top', randomTop+'px').addClass(speedClass);
+	}
+		
+	</script>
+</head>
+<body>
+	<div id="social-flow" class="animating">
+		<div class="item"></div>
+	</div>
+	<button onclick="addBox();">Add Box</button>
+	
+</body>
+</html>
