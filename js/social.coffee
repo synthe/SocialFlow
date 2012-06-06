@@ -47,11 +47,11 @@ parseTwitter = (json) ->
 			p.filter = k
 			console.log "Pushing to socialQueue"
 			window.statusQueue.push p 
-			#sf.queues.social.push p
+			sf.queues.addSocial p
 
 
 getFacebook = (params) ->
-	query = 'https://graph.facebook.com/search/?callback=&limit=50&q=Nordstrom&fields=message,from'
+	query = 'https://graph.facebook.com/search/?callback=&limit=100&q=Nordstrom&fields=message,from'
 	$.ajax
 		url: query
 		type: 'GET'
@@ -90,7 +90,7 @@ parseFacebook = (json) ->
 			p.filter = k
 			console.log "Pushing to socialQueue"
 			window.statusQueue.push p 
-			#sf.queues.social.push p
+			sf.queues.addSocial p
 
 # addToQueue = (message) ->
 # 	keywords = sf.filter(message)

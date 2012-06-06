@@ -30,7 +30,6 @@ sf.ui = {
 		var elem = this.elem.template
 			.clone()
 			.removeAttr('id')
-			.css("right", '500px')
 			.css('top', this.getRandomPosition() + 'px');
 		var icon = elem.find('.icon')
 			.attr('href', obj.link);
@@ -45,8 +44,7 @@ sf.ui = {
 		// Place products
 		for( x=0; x<obj.products.length; x++ ){
 			var y = $('<a target="_blank"><img /><span></span></a>');
-			y.find('a').attr('href', obj.products[x].link);
-			console.log(y.find('a'));
+			y.attr('href', obj.products[x].link);
 			y.find('img').attr('src', obj.products[x].photo);
 			y.appendTo(products);
 		}
