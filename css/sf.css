@@ -70,7 +70,7 @@ section#social-flow{
 		/*-webkit-transition: -webkit-transform 0.5s ease-in-out;*/
 	}
 	#social-flow .item.size-small {
-		-webkit-transform: scale(0.7);
+		-webkit-transform: scale(0.8);
 	}
 	#social-flow .item.speed-fast {
 		-webkit-animation-duration: 10s;
