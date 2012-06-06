@@ -5,7 +5,8 @@ sf.ui = {
 		containerID: 'social-flow',
 		templateID: 'sf-template',
 		itemBaseHeight: 100,
-		repeatSpeed: 2000
+		repeatSpeed: 2000,
+		speedClasses: ['speed-fast', 'speed-normal', 'speed-slow']
 	},
 	elem: {
 		container: null,
@@ -14,6 +15,10 @@ sf.ui = {
 	init: function(){
 		this.elem.container = $('#' + this.config.containerID);
 		this.elem.template = $('#' + this.config.templateID);
+
+		$('#social-flow').on('animationend webkitAnimationEnd', '.item', function() {
+			$(this).remove();
+		});
 
 		this.repeater();
 	},
@@ -36,6 +41,8 @@ sf.ui = {
 		elem.find('.message a')
 			.attr('href', obj.link);
 
+		var speedClass = this.config.speedClasses[Math.floor(Math.random()*this.config.speedClasses.length)];			
+		elem.addClass(speedClass);
 		// Add item to page
 		elem.appendTo(this.elem.container);
 	},

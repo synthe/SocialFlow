@@ -6,6 +6,7 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/animate-test.css" media="all">
 	<script type="text/javascript">
+
 	var speedClasses = ['speed-fast', 'speed-normal', 'speed-slow'];
 
 	function addBox() {
@@ -13,12 +14,20 @@
 		var speedClass = speedClasses[Math.floor(Math.random()*speedClasses.length)];
 		$('.item:first').clone().appendTo($('#social-flow')).css('top', randomTop+'px').addClass(speedClass);
 	}
+
+	$(document).ready(function() {
+		$('#social-flow').on('animationend webkitAnimationEnd', '.item', function() {
+			$(this).remove();
+			//console.log('jq animation end', this);
+		});
+
+	})
 		
 	</script>
 </head>
 <body>
 	<div id="social-flow" class="animating">
-		<div class="item"></div>
+		<div class="item speed-fast"></div>
 	</div>
 	<button onclick="addBox();">Add Box</button>
 	
