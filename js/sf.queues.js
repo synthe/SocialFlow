@@ -17,7 +17,7 @@ sf.queues = {
 		for( x=0; x<sf.queues.social.length; x++ ){
 			sf.nordapi.execute(sf.queues.social[x], sf.queues.addPending);
 			sf.queues.social.splice(x,1);
-			console.log('adding social item to API');
+			//console.log(sf.queues.social[x]);
 		}
 		this.timer = setTimeout(sf.queues.runSocial, sf.queues.config.repeatSpeed)
 	},

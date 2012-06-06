@@ -75,8 +75,8 @@ sf.ui = {
 		return position;
 	},
 	getNext: function(queue){
-		//return sf.queues.getNextPending();
-		///* json example structure
+		return sf.queues.getNextPending();
+		/* json example structure
 		return {
 			link: 'http://www.twitter.com',
 			icon: 'img/demo-random-persons-face.jpg',
@@ -104,7 +104,7 @@ sf.ui = {
 				},
 			]
 		}
-		//*/
+		*/
 	},
 	repeater: function(){
 		sf.ui.place( sf.ui.getNext() );
