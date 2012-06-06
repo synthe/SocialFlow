@@ -4,22 +4,32 @@ sf.ui = {
 	config: {
 		containerID: 'social-flow',
 		templateID: 'sf-template',
-		itemBaseHeight: 100,
-		repeatSpeed: 2000,
+		itemBaseHeight: 135,
+		repeatSpeed: 1000,
 		noIconImage: 'img/demo-random-persons-face.jpg',
+		sizeClasses: ['size-normal', 'size-small'],
 		speedClasses: ['speed-fast', 'speed-normal', 'speed-slow']
 	},
 	elem: {
 		container: null,
-		template: null
+		template: null,
+		blockUI: null
 	},
 	init: function(){
 		this.elem.container = $('#' + this.config.containerID);
 		this.elem.template = $('#' + this.config.templateID);
+		this.elem.blockUI = $('.blockUI');
 
-		$('#social-flow').on('animationend webkitAnimationEnd', '.item', function() {
-			$(this).remove();
-		});
+		$('#social-flow')
+			.on('animationend webkitAnimationEnd', '.item', function() {
+				$(this).remove();
+			})
+			.on('mouseover', '.item', function(){
+				sf.ui.elem.blockUI.css('display', 'block');
+			})
+			.on('mouseout', '.item', function(){
+				sf.ui.elem.blockUI.css('display', 'none');
+			});
 
 		this.repeater();
 	},
@@ -51,6 +61,8 @@ sf.ui = {
 
 		var speedClass = this.config.speedClasses[Math.floor(Math.random()*this.config.speedClasses.length)];			
 		elem.addClass(speedClass);
+		var sizeClass = this.config.sizeClasses[Math.floor(Math.random()*this.config.sizeClasses.length)];			
+		elem.addClass(sizeClass);
 		// Add item to page
 		elem.appendTo(this.elem.container);
 	},
