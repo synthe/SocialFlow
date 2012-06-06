@@ -13,18 +13,21 @@ sf.queues = {
 	complete: [],
 
 	runSocial: function(){
-		for( x=0; x<this.social.length; x++ ){
-			sf.nordapi.execute(this.social[x].filter, sf.queues.addPending);
-			this.social.splice(x,1);
+		// console.log(this.social);
+		for( x=0; x<sf.queues.social.length; x++ ){
+			sf.nordapi.execute(sf.queues.social[x], sf.queues.addPending);
+			sf.queues.social.splice(x,1);
+			console.log('adding social item to API');
 		}
-		this.timer = setTimeout(sf.queues.runSocial, this.config.repeatSpeed)
+		this.timer = setTimeout(sf.queues.runSocial, sf.queues.config.repeatSpeed)
 	},
 
 	addPending: function(obj){
 		this.pending.push(obj);
+		console.log('adding pending item to queue');
 	},
 	addSocial: function(obj){
-		this.social.push(obj);
+		sf.queues.social.push(obj);
 	},
 
 	getNextPending: function(){
