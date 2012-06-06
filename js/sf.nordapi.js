@@ -17,31 +17,27 @@ sf.nordapi = (function() {
 		type: 'keyword',
 		keyword: ''
 	};
-
-	function translateResults(type, products) {
-		if (products.length == 0) {type = 'none';}
-		return {
-			type: type,
-			results: products
-		};
-	}
+	baseObj.thumbBase = 'http://g-lvl3.nordstromimage.com/imagegallery/store/product/Thumbnail';
+	baseObj.productBase = 'http://shop.nordstrom.com/S/';
 
 	// function defines
-	function executeFn(params, callback) {
-		if (typeof params == 'undefined') {var params = {};}
+	function executeFn(socialObj, callback) {
+		if (typeof socialObj == 'undefined' || typeof socialObj.filter == 'undefined') {
+			var socialObj = {filter: {}};
+		}
 
 		var data = {
 			brand: false,
 			buzzword: false
 		};
 
-		$.extend(data, params);
+		$.extend(data, socialObj.filter);
 
 		var searchTerms = [];
 		if (data.brand != false) {searchTerms.push(data.brand);}
 		if (data.buzzword != false) {searchTerms.push(data.buzzword);}
 
-		if (searchTerms.length == 0) {callback(translateResults('none', [])); return;}
+		if (searchTerms.length == 0) {return;}
 
 		if (searchTerms.length == 2) {
 			// brand + buzz
@@ -54,18 +50,18 @@ sf.nordapi = (function() {
 							runQuery(searchTerms, function(productsBuzz) {
 								// buzz = 0 OR buzz > 0
 								productsBuzz = translateResults('buzz', productsBuzz);
-								callback(productsBuzz);
+								runCallback(socialObj, productsBuzz, callback);
 							});
 						} else {
 							// brand > 0
 							productsBrand = translateResults('brand', productsBrand);
-							callback(productsBrand);
+							runCallback(socialObj, productsBuzz, callback);
 						}
 
 					});
 				} else {
 					productsBrandBuzz = translateResults('brandbuzz', productsBrandBuzz);
-					callback(productsBrandBuzz);
+					runCallback(socialObj, productsBuzz, callback);
 				}
 			});
 
@@ -74,13 +70,33 @@ sf.nordapi = (function() {
 			// brand or buzz only
 			runQuery(searchTerms.join(''), function(prods) {
 				if (data.brand == false) {
-					callback(translateResults('buzz', prods));
+					var prods = translateResults('buzz', prods);
+					runCallback(socialObj, prods, callback);
 				} else {
-					callback(translateResults('brand', prods));
+					var prods = translateResults('brand', prods);
+					runCallback(socialObj, prods, callback);
+
 				}
 			});
 		}
 
+	}
+
+	function runCallback(socialObj, prods, callbackFn) {
+		if (prods.length > 0) {
+			socialObj.products = prods;
+			if (typeof callbackFn == 'function') {
+				callbackFn(socialObj);
+			}
+		}
+	}
+
+	function translateResults(type, products) {
+		if (products.length == 0) {type = 'none';}
+		return {
+			type: type,
+			results: products
+		};
 	}
 
 
@@ -120,8 +136,8 @@ sf.nordapi = (function() {
 			id: 	pObj.Id,
 			name: 	pObj.Title,
 			brand: 	pObj.BrandLabelName,
-			photo: 	pObj.PhotoPath,
-			path: 	pObj.PathAlias,
+			photo: 	baseObj.thumbBase + pObj.PhotoPath,
+			link: 	baseObj.productBase + pObj.PathAlias,
 			style: 	pObj.StyleNumber
 		};
 	}
