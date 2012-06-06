@@ -42,7 +42,8 @@
       if (k && p !== void 0 && p.message !== void 0) {
         p.filter = k;
         console.log("Pushing to socialQueue");
-        _results.push(window.statusQueue.push(p));
+        window.statusQueue.push(p);
+        _results.push(sf.queues.addSocial(p));
       } else {
         _results.push(void 0);
       }
@@ -52,7 +53,7 @@
 
   getFacebook = function(params) {
     var query;
-    query = 'https://graph.facebook.com/search/?callback=&limit=50&q=Nordstrom&fields=message,from';
+    query = 'https://graph.facebook.com/search/?callback=&limit=100&q=Nordstrom&fields=message,from';
     return $.ajax({
       url: query,
       type: 'GET',
@@ -86,7 +87,8 @@
       if (k !== {} && p !== void 0 && p.message !== void 0) {
         p.filter = k;
         console.log("Pushing to socialQueue");
-        _results.push(window.statusQueue.push(p));
+        window.statusQueue.push(p);
+        _results.push(sf.queues.addSocial(p));
       } else {
         _results.push(void 0);
       }
