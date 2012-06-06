@@ -7,6 +7,7 @@ sf.ui = {
 		itemBaseHeight: 100,
 		repeatSpeed: 2000,
 		noIconImage: 'img/demo-random-persons-face.jpg',
+		sizeClasses: ['size-normal', 'size-small'],
 		speedClasses: ['speed-fast', 'speed-normal', 'speed-slow']
 	},
 	elem: {
@@ -51,6 +52,8 @@ sf.ui = {
 
 		var speedClass = this.config.speedClasses[Math.floor(Math.random()*this.config.speedClasses.length)];			
 		elem.addClass(speedClass);
+		var sizeClass = this.config.sizeClasses[Math.floor(Math.random()*this.config.sizeClasses.length)];			
+		elem.addClass(sizeClass);
 		// Add item to page
 		elem.appendTo(this.elem.container);
 	},
