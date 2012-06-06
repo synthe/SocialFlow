@@ -51,6 +51,8 @@ var buzzwords = [
 
 	function theFilterFn(message) {
 		var productFilter = {};
+		if (typeof message != 'string') {return productFilter;}
+		
 		var tmpMessage = message.toString().toLowerCase();
 		for (var i=0; i < brands.length; i++) {
 			if (tmpMessage.indexOf(brands[i]) > -1) {
