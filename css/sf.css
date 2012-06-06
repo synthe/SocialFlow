@@ -66,6 +66,11 @@ section#social-flow{
 		-webkit-animation-timing-function: linear;
 		-webkit-animation-iteration-count: 1;
 		-webkit-animation-duration: 10s;
+		-webkit-transform: scale(0.9);
+		-webkit-transition: -webkit-transform 0.5s ease-in-out;
+	}
+	#social-flow .item.size-small {
+		-webkit-transform: scale(0.7);
 	}
 	#social-flow .item.speed-fast {
 		-webkit-animation-duration: 10s;
@@ -78,6 +83,7 @@ section#social-flow{
 	}
 	#social-flow .item:hover {
 		-webkit-animation-play-state: paused;
+		-webkit-transform: scale(1.0);
 		z-index: 100;
 	}
 
