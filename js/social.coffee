@@ -64,7 +64,7 @@ parseFacebook = (json) ->
 		x = 
 			name: x.from.name
 			icon: null
-			message : x.message
+			message : x.message[:140]
 			link: null
 		peeps.push x
 
