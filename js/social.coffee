@@ -61,15 +61,10 @@ parseFacebook = (json) ->
 	peeps = []
 
 	for x in json.data
-		if message isnt undefined
-			message = x.message[0..140]
-		else
-			message = message
-
 		x = 
 			name: x.from.name
 			icon: null
-			message: message
+			message : x.message
 			link: null
 		peeps.push x
 
@@ -85,6 +80,7 @@ parseFacebook = (json) ->
 		k = sf.filter p.message
 		if $.isEmptyObject(k) is false and p isnt undefined and p.message isnt undefined
 			p.filter = k
+			p.message = p.message[0..140]
 			console.log "Pushing to socialQueue from le Facebook"
 			window.statusQueue.push p 
 			sf.queues.addSocial p

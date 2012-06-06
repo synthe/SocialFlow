@@ -66,22 +66,17 @@
   };
 
   parseFacebook = function(json) {
-    var k, message, p, peeps, x, _i, _j, _len, _len1, _ref, _results;
+    var k, p, peeps, x, _i, _j, _len, _len1, _ref, _results;
     console.log('ANALYZING FACEBOOKS');
     console.log(json.data.length + ' facebooks located');
     peeps = [];
     _ref = json.data;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       x = _ref[_i];
-      if (message !== void 0) {
-        message = x.message.slice(0, 141);
-      } else {
-        message = message;
-      }
       x = {
         name: x.from.name,
         icon: null,
-        message: message,
+        message: x.message,
         link: null
       };
       peeps.push(x);
@@ -93,6 +88,7 @@
       k = sf.filter(p.message);
       if ($.isEmptyObject(k) === false && p !== void 0 && p.message !== void 0) {
         p.filter = k;
+        p.message = p.message.slice(0, 141);
         console.log("Pushing to socialQueue from le Facebook");
         window.statusQueue.push(p);
         _results.push(sf.queues.addSocial(p));
