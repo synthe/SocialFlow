@@ -61,10 +61,15 @@ parseFacebook = (json) ->
 	peeps = []
 
 	for x in json.data
+		if message isnt undefined
+			message = x.message[0..140]
+		else
+			message = message
+
 		x = 
 			name: x.from.name
 			icon: null
-			message : x.message[:140]
+			message: message
 			link: null
 		peeps.push x
 
