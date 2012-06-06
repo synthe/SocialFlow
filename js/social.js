@@ -2,9 +2,12 @@
 (function() {
   var getFacebook, getTwitter, parseFacebook, parseTwitter;
 
-  getTwitter = function(params) {
+  getTwitter = function(page) {
     var query;
-    query = "http://search.twitter.com/search.json?q=%40Nordstrom&callback=?";
+    if (page == null) {
+      page = 1;
+    }
+    query = "http://search.twitter.com/search.json?q=%40Nordstrom&callback=?&page=" + page;
     return $.ajax({
       url: query,
       type: 'GET',
@@ -39,7 +42,8 @@
     for (_j = 0, _len1 = peeps.length; _j < _len1; _j++) {
       p = peeps[_j];
       k = sf.filter(p.message);
-      if (k && p !== void 0 && p.message !== void 0) {
+      if ($.isEmptyObject(k) === false && p !== void 0 && p.message !== void 0) {
+        console.log(k);
         p.filter = k;
         console.log("Pushing to socialQueue");
         window.statusQueue.push(p);
@@ -53,7 +57,7 @@
 
   getFacebook = function(params) {
     var query;
-    query = 'https://graph.facebook.com/search/?callback=&limit=100&q=Nordstrom&fields=message,from';
+    query = 'https://graph.facebook.com/search/?callback=&limit=1&q=Nordstrom&fields=message,from';
     return $.ajax({
       url: query,
       type: 'GET',
@@ -84,7 +88,8 @@
     for (_j = 0, _len1 = peeps.length; _j < _len1; _j++) {
       p = peeps[_j];
       k = sf.filter(p.message);
-      if (k !== {} && p !== void 0 && p.message !== void 0) {
+      if ($.isEmptyObject(k) === false && p !== void 0 && p.message !== void 0) {
+        console.log(k);
         p.filter = k;
         console.log("Pushing to socialQueue");
         window.statusQueue.push(p);
@@ -96,10 +101,23 @@
     return _results;
   };
 
+  window.getTwitter = getTwitter;
+
+  window.getFacebook = getFacebook;
+
   $(document).ready(function() {
+    var n, page, _results;
     window.statusQueue = [];
     getTwitter();
-    return getFacebook();
+    getFacebook();
+    page = 1;
+    n = 0;
+    _results = [];
+    while (n < 10) {
+      setTimeout('window.getTwitter', 10000, page++);
+      _results.push(n++);
+    }
+    return _results;
   });
 
 }).call(this);

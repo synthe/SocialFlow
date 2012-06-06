@@ -1,10 +1,5 @@
-
-
-
-
-
-getTwitter = (params) -> 
-	query = "http://search.twitter.com/search.json?q=%40Nordstrom&callback=?"
+getTwitter = (page = 1) -> 
+	query = "http://search.twitter.com/search.json?q=%40Nordstrom&callback=?&page=" + page
 	$.ajax 
 		url: query
 		type: 'GET'
@@ -42,8 +37,8 @@ parseTwitter = (json) ->
 		# k = addToQueue p[2]
 
 		k = sf.filter p.message
-
-		if k and p isnt undefined and p.message isnt undefined
+		if $.isEmptyObject(k) is false and p isnt undefined and p.message isnt undefined
+			console.log k
 			p.filter = k
 			console.log "Pushing to socialQueue"
 			window.statusQueue.push p 
@@ -51,7 +46,7 @@ parseTwitter = (json) ->
 
 
 getFacebook = (params) ->
-	query = 'https://graph.facebook.com/search/?callback=&limit=100&q=Nordstrom&fields=message,from'
+	query = 'https://graph.facebook.com/search/?callback=&limit=1&q=Nordstrom&fields=message,from'
 	$.ajax
 		url: query
 		type: 'GET'
@@ -85,13 +80,15 @@ parseFacebook = (json) ->
 	for p in peeps
 
 		k = sf.filter p.message
-
-		if k isnt {} and p isnt undefined and p.message isnt undefined
+		if $.isEmptyObject(k) is false and p isnt undefined and p.message isnt undefined
+			console.log k
 			p.filter = k
 			console.log "Pushing to socialQueue"
 			window.statusQueue.push p 
 			sf.queues.addSocial p
 
+window.getTwitter = getTwitter
+window.getFacebook = getFacebook
 # addToQueue = (message) ->
 # 	keywords = sf.filter(message)
 # 	if keywords == {}
@@ -101,10 +98,14 @@ parseFacebook = (json) ->
 	#var keywords = sf.filter(message)
 	#if keywords == {} it sucks and don't add it
 
-
-
-
 $(document).ready ->
 	window.statusQueue = []
 	getTwitter()
 	getFacebook()
+
+	page = 1
+	n = 0
+
+	while n < 10
+		setTimeout('window.getTwitter', 10000, page++)
+		n++
