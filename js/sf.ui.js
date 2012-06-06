@@ -5,9 +5,8 @@ sf.ui = {
 		containerID: 'social-flow',
 		templateID: 'sf-template',
 		itemBaseHeight: 100,
-		repeatSpeed: 2000
 		repeatSpeed: 2000,
-		noIconImage: 'img/demo-random-persons-face.jpg'
+		noIconImage: 'img/demo-random-persons-face.jpg',
 		speedClasses: ['speed-fast', 'speed-normal', 'speed-slow']
 	},
 	elem: {
@@ -31,7 +30,6 @@ sf.ui = {
 		var elem = this.elem.template
 			.clone()
 			.removeAttr('id')
-			.css("right", '500px')
 			.css('top', this.getRandomPosition() + 'px');
 		var icon = elem.find('.icon')
 			.attr('href', obj.link);
